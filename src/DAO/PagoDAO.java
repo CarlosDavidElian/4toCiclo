@@ -27,22 +27,20 @@ public class PagoDAO {
         cargarPagosDesdeArchivo();
     }
 
-    private void cargarPagosDesdeArchivo() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(PAGOS_FILE))) {
+    private void cargaPagosDesArchivo() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PAGOS_FILE))){
             String linea;
-            while ((linea = reader.readLine()) != null) {
+            while((linea = reader.readLine()) != null) {
                 String[] partes = linea.split(",");
                 String idPago = partes[0];
                 Date fechaPago = dateFormat.parse(partes[1]);
                 double monto = Double.parseDouble(partes[2]);
 
-                // Crear un objeto Pago
                 Pago pago = new Pago(idPago, fechaPago, monto);
 
-                // Agregar el pago a la lista
                 pagos.add(pago);
             }
-        } catch (IOException | ParseException e) {
+        } catch(IOException | ParseException e) {
             e.printStackTrace();
         }
     }
